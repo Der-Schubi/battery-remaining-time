@@ -196,7 +196,7 @@ function monkeypatch(batteryArea) {
             let arrow;
 
             if (showArrowOnCharge)
-                arrow = decodeURIComponent(escape('↑ ')).toString();
+                arrow = "\u2191 ";
             else
                 arrow = ' ';
 
@@ -226,7 +226,7 @@ function monkeypatch(batteryArea) {
                     if (!showOnFull)
                         hideBattery();
                     else {
-                        this.timeString = decodeURIComponent(escape('∞'));
+                        this.timeString = "\u221E";
                         this.displayString = ' ';
                         if (showPercentage)
                             this.displayString = this.displayString + '100%';
