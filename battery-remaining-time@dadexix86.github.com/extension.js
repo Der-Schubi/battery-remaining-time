@@ -200,6 +200,10 @@ function monkeypatch(batteryArea) {
             else
                 arrow = ' ';
 
+            if (!this._withLabel) {
+                this._replaceIconWithBox();
+            }
+
             if (totalMatch[2] == 1){
                 if(!showOnCharge)
                     hideBattery();
@@ -266,10 +270,6 @@ function monkeypatch(batteryArea) {
             if (debug){
                 global.log("displayString:" + this.displayString.toString());
             }
-
-            if (!this._withLabel) {
-                this._replaceIconWithBox();
-            }
             
             this._label.set_text(this.displayString);
         }));
@@ -280,8 +280,12 @@ function hideBattery() {
     for (var i = 0; i < Main.panel._rightBox.get_children().length; i++) {
         if (Main.panel.statusArea['battery'] == 
             Main.panel._rightBox.get_children()[i]._delegate ||
-            Main.panel.statusArea['batteryBox'] == 
-            Main.panel._rightBox.get_children()[i]._delegate) {
+	    (
+	     Main.panel.statusArea['batteryBox'] != undefined &&
+	     Main.panel.statusArea['batteryBox'] == 
+	     Main.panel._rightBox.get_children()[i]._delegate
+	    )
+	   ) {
             if (debug){
                 global.log("Battery Remaing Time: hiding battery.");
             }
@@ -295,8 +299,12 @@ function showBattery() {
     for (var i = 0; i < Main.panel._rightBox.get_children().length; i++) {
         if (Main.panel.statusArea['battery'] == 
             Main.panel._rightBox.get_children()[i]._delegate ||
-            Main.panel.statusArea['batteryBox'] == 
-            Main.panel._rightBox.get_children()[i]._delegate) {
+	    (
+	     Main.panel.statusArea['batteryBox'] != undefined &&
+             Main.panel.statusArea['batteryBox'] == 
+             Main.panel._rightBox.get_children()[i]._delegate
+	    )
+	   ) {
             if (debug){
                 global.log("Battery Remaing Time: showing battery.");
             }
